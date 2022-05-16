@@ -1,0 +1,54 @@
+﻿@page "/NewPage"
+
+@using MySql.Data
+@using BlazorApp2.Models
+@using DataLibrary
+@using Microsoft.Extensions.Configuration
+@inject IDataAccess _data
+@inject IConfiguration _config
+
+<h3>NewPage</h3>
+
+@if (InfoList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>ID</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in InfoList)
+            {
+                <tr>
+                    <td>@p.Name</td>
+                    <td>@p.Surname</td>
+                    <td>@p.ID</td>
+                    <td>@p.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+
+@code {
+
+    List<InfoModel> InfoList;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "select * from Table1";
+        InfoList = await _data.LoadData<InfoModel, dynamic>(sql, new{}, _config.GetConnectionString("default"));
+    }
+}
