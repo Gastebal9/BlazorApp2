@@ -8,6 +8,8 @@
 @inject IConfiguration _config
 
 <h3>NewPage</h3>
+<button class="btn btn-primary" @onclick="InsertData">Insert</button>
+<input @bind="in1"/>
 
 @if (InfoList == null)
 {
@@ -42,6 +44,19 @@ else
 
 
 @code {
+    public string in1;
+    private async Task InsertData()
+    {
+
+        string sql = "Insert into Table1(Name,Surname,ID,Email) values('Insert','2','2',@in1)";
+        await _data.SaveData(sql, new { in1= @in1}, _config.GetConnectionString("default"));
+        
+            
+
+      
+
+        
+    }
 
     List<InfoModel> InfoList;
 
