@@ -8,8 +8,8 @@
 @inject IConfiguration _config
 
 <h3>NewPage</h3>
-<button class="btn btn-primary" @onclick="InsertData">Insert</button>
-<input @bind="in1"/>
+<button class="btn btn-primary" @onclick="SearchData">Search</button>
+<input @bind="in1" />
 
 @if (InfoList == null)
 {
@@ -45,17 +45,17 @@ else
 
 @code {
     public string in1;
-    private async Task InsertData()
+    public bool isPostBack = false;
+
+    private async Task SearchData()
     {
 
-        string sql = "Insert into Table1(Name,Surname,ID,Email) values('Insert','2','2',@in1)";
-        await _data.SaveData(sql, new { in1= @in1}, _config.GetConnectionString("default"));
-        
-            
+        string sql = "select * from Table1 where Name= '@in1'";
+        InfoList = await _data.LoadData<InfoModel, dynamic>(sql, new { in1 = @in1 }, _config.GetConnectionString("default"));
+        isPostBack = true;
 
-      
 
-        
+
     }
 
     List<InfoModel> InfoList;
@@ -63,7 +63,17 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from Table1";
-        InfoList = await _data.LoadData<InfoModel, dynamic>(sql, new{}, _config.GetConnectionString("default"));
+        if (!isPostBack)
+        {
+            string sql2 = "select * from Table1";
+            InfoList = await _data.LoadData<InfoModel, dynamic>(sql2, new { }, _config.GetConnectionString("default"));
+        }
+        else
+        {
+            string sql = "select * from Table1 where Name= @in1";
+            InfoList = await _data.LoadData<InfoModel, dynamic>(sql, new { in1 = @in1 }, _config.GetConnectionString("default"));
+
+        }
+
     }
 }

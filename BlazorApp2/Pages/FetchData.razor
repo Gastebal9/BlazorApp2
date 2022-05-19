@@ -1,48 +1,53 @@
 ﻿@page "/fetchdata"
 
-<PageTitle>Weather forecast</PageTitle>
+
 
 @using BlazorApp2.Data
-@inject WeatherForecastService ForecastService
+@using MySql.Data
+@using BlazorApp2.Models
+@using DataLibrary
+@using Microsoft.Extensions.Configuration
+@inject IDataAccess _data
+@inject IConfiguration _config
+@inject NavigationManager _nav
 
-<h1>Weather forecast</h1>
+<h1>Insert Page</h1>
 
-<p>This component demonstrates fetching data from a service.</p>
+<label>Name</label>
+<input @bind= "Name"/>
 
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<label>Surname</label>
+<input @bind= "Surname"/>
+
+<label>ID</label>
+<input @bind= "ID"/>
+
+<label>Email</label>
+<input @bind= "Email"/>
+
+<button class="btn btn-primary" @onclick="InsertData">Insert</button>
+
 
 @code {
-    private WeatherForecast[]? forecasts;
+
+    public string Name ; 
+    public string Surname ; 
+    public string ID; 
+    public string Email ; 
+
+    public async Task InsertData()
+    {
+        string sql = "Insert into Table1(Name,Surname,ID,Email) values(@Name,@Surname,@ID,@Email)";
+        await _data.SaveData(sql, new { Name=@Name, Surname=@Surname,ID=@ID, Email=@Email}, _config.GetConnectionString("default"));
+        //_nav.NavigateTo("/Newpage");
+    }
+
+   
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        
     }
+    
 }
+

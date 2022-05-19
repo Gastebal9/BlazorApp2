@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "mssql1": {
-      "secretStore": null,
+      "secretStore": "AzureAppSettings",
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/frankenstein1/databases/fsttestdb1",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:default"
