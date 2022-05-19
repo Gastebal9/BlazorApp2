@@ -1,10 +1,10 @@
 {
   "dependencies": {
-    "mssql1": {
-      "secretStore": null,
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/frankenstein1/databases/fsttestdb1",
-      "type": "mssql.azure",
-      "connectionId": "ConnectionStrings:default"
+    "signalr1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.SignalRService/SignalR/BlazorApp2SingnalR",
+      "type": "signalr.azure",
+      "connectionId": "Azure:SignalR:ConnectionString"
     }
   }
 }
