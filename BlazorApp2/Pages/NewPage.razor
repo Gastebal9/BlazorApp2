@@ -53,7 +53,7 @@ else
         string sql = "select * from Table1 where Name= '@in1'";
         InfoList = await _data.LoadData<InfoModel, dynamic>(sql, new { in1 = @in1 }, _config.GetConnectionString("default"));
         isPostBack = true;
-
+        await OnInitializedAsync();
 
 
     }

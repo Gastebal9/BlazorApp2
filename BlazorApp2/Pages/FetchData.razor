@@ -2,53 +2,66 @@
 
 
 
-@using BlazorApp2.Data
+
 @using MySql.Data
 @using BlazorApp2.Models
 @using DataLibrary
 @using Microsoft.Extensions.Configuration
 @inject IDataAccess _data
 @inject IConfiguration _config
-@inject NavigationManager _nav
+
 
 <h1>Insert Page</h1>
 
-<label>Name</label>
-<input @bind= "Name"/>
+<label style="width:100px">Name</label>
+<input @bind="Name" />
+<br />
 
-<label>Surname</label>
-<input @bind= "Surname"/>
+<label style="width:100px">Surname</label>
+<input @bind="Surname" />
+<br />
+<label style="width:100px">ID</label>
+<input @bind="ID" />
+<br />
 
-<label>ID</label>
-<input @bind= "ID"/>
-
-<label>Email</label>
-<input @bind= "Email"/>
+<label style="width:100px">Email</label>
+<input @bind="Email" />
+<br />
 
 <button class="btn btn-primary" @onclick="InsertData">Insert</button>
 @* <a href="" class="reload" @onclick="InsertData">Insert</a>*@
 
 
+
 @code {
 
-    public string Name ; 
-    public string Surname ; 
-    public string ID; 
-    public string Email ; 
+    public string Name;
+    public string Surname;
+    public string ID;
+    public string Email;
 
     public async Task InsertData()
     {
         string sql = "Insert into Table1(Name,Surname,ID,Email) values(@Name,@Surname,@ID,@Email)";
-        await _data.SaveData(sql, new { Name=@Name, Surname=@Surname,ID=@ID, Email=@Email}, _config.GetConnectionString("default"));
-        //_nav.NavigateTo("/Newpage");
+        await _data.SaveData(sql, new { Name = @Name, Surname = @Surname, ID = @ID, Email =@Email }, _config.GetConnectionString("default"));
+        
+        await Refresh();
+
     }
 
-   
 
+    List<InfoModel> InfoList;
     protected override async Task OnInitializedAsync()
     {
-        
+
     }
-    
+
+    public async Task Refresh()
+    {
+        string sql2 = "select * from Table1 where Name= '@Name'";
+        InfoList = await _data.LoadData<InfoModel, dynamic>(sql2, new { }, _config.GetConnectionString("default"));
+
+    }
+
 }
 

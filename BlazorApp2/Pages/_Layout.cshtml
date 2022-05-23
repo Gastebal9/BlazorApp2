@@ -16,15 +16,15 @@
 <body>
     @RenderBody()
 
-    <div id="blazor-error-ui">
+    <div id="blazor-error-ui" class="sticky-top" style="height:50px; background-color:gray">
         <environment include="Staging,Production">
             An error has occurred. This application may no longer respond until reloaded.
         </environment>
         <environment include="Development">
-            Your changers have been save please reload the page 
+            To ensure changes have been saved please 
         </environment>
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
+        <a href="" class="reload" style="color:green">Reload</a>
+      
     </div>
 
 
