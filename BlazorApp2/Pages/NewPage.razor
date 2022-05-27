@@ -71,10 +71,10 @@ else
     List<InfoModel> InfoList;
     public string del;
 
-    public string Name;
-    public string Surname;
-    public string ID;
-    public string Email;
+    public string Name ="";
+    public string Surname="";
+    public string ID="";
+    public string Email="";
     public bool isPostBack = false;
 
     private async Task SearchData()
@@ -132,6 +132,6 @@ else
         Surname = "";
         ID = "";
         Email = "";
-        
+        await OnInitializedAsync();
     }
 }
