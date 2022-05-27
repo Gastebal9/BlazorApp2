@@ -1,6 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 @namespace BlazorApp2.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@* @inherits NewPage *@
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +21,7 @@
 <body>
     @RenderBody()
 
-    <div id="blazor-error-ui">
+    <div id="blazor-error-ui" class="sticky-top" style="height: 50px;">
         <environment include="Staging,Production">
             An error has occurred. This application may no longer respond until reloaded.
         </environment>
@@ -26,7 +29,7 @@
             Are you sure you want to save the changes ?
         </environment>
         <a href="" class="reload">Yes</a>
-        <a class="dismiss">No</a>
+        <button id="NoDel" class="reload">No</button>
     </div>
 
 

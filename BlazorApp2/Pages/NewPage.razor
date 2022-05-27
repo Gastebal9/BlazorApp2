@@ -10,10 +10,28 @@
 <h3>NewPage</h3>
 <button class="btn btn-primary" @onclick="SearchData">Search</button>
 <input @bind="in1" />
-<button class="btn btn-primary" @onclick="ResetSearch">Reset</button>
+<button class="btn btn-primary" @onclick="ResetSearch" style="background-color: gray;">Reset</button>
 <br>
-<button class="btn btn-primary" @onclick="DeleteData">Delete</button>
+<button class="btn btn-danger" @onclick="DeleteData">Delete</button>
 <input @bind="del">
+<br>
+<br>
+<h1>Insert Data :</h1>
+
+<label>Name</label>
+<input @bind="Name" />
+
+<label>Surname</label>
+<input @bind="Surname" />
+
+<label>ID</label>
+<input @bind="ID" />
+
+<label>Email</label>
+<input @bind="Email" />
+
+<button class="btn btn-primary" @onclick="InsertData">Insert</button>
+@* <a href="" class="reload" @onclick="InsertData">Insert</a>*@
 
 
 @if (InfoList == null)
@@ -53,6 +71,10 @@ else
     List<InfoModel> InfoList;
     public string del;
 
+    public string Name;
+    public string Surname;
+    public string ID;
+    public string Email;
     public bool isPostBack = false;
 
     private async Task SearchData()
@@ -65,10 +87,13 @@ else
 
 
     }
-
-
-
-
+    public async Task InsertData()
+    {
+        string sql = "Insert into Table1(Name,Surname,ID,Email) values(@Name,@Surname,@ID,@Email)";
+        await _data.SaveData(sql, new { Name = @Name, Surname = @Surname, ID = @ID, Email = @Email },
+        _config.GetConnectionString("default"));
+        //_nav.NavigateTo("/Newpage");
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -90,7 +115,7 @@ else
     {
         string sql2 = "select * from Table1";
         InfoList = await _data.LoadData<InfoModel, dynamic>(sql2, new { }, _config.GetConnectionString("default"));
-
+        in1 = "";
 
     }
 
@@ -99,5 +124,14 @@ else
         string sql = "delete from Table1 where Name = @del";
         await _data.SaveData(sql, new { del = @del }, _config.GetConnectionString("default"));
 
+    }
+
+    public async Task NoDelete()
+    {
+        Name = "";
+        Surname = "";
+        ID = "";
+        Email = "";
+        
     }
 }

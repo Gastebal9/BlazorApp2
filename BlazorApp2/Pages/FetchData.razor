@@ -1,7 +1,4 @@
 ﻿@page "/fetchdata"
-
-
-
 @using BlazorApp2.Data
 @using MySql.Data
 @using BlazorApp2.Models
@@ -11,19 +8,19 @@
 @inject IConfiguration _config
 @inject NavigationManager _nav
 
-<h1>Insert Page</h1>
+<h1>Insert Data :</h1>
 
 <label>Name</label>
-<input @bind= "Name"/>
+<input @bind="Name" />
 
 <label>Surname</label>
-<input @bind= "Surname"/>
+<input @bind="Surname" />
 
 <label>ID</label>
-<input @bind= "ID"/>
+<input @bind="ID" />
 
 <label>Email</label>
-<input @bind= "Email"/>
+<input @bind="Email" />
 
 <button class="btn btn-primary" @onclick="InsertData">Insert</button>
 @* <a href="" class="reload" @onclick="InsertData">Insert</a>*@
@@ -31,24 +28,24 @@
 
 @code {
 
-    public string Name ; 
-    public string Surname ; 
-    public string ID; 
-    public string Email ; 
+    public string Name;
+    public string Surname;
+    public string ID;
+    public string Email;
 
     public async Task InsertData()
     {
         string sql = "Insert into Table1(Name,Surname,ID,Email) values(@Name,@Surname,@ID,@Email)";
-        await _data.SaveData(sql, new { Name=@Name, Surname=@Surname,ID=@ID, Email=@Email}, _config.GetConnectionString("default"));
+        await _data.SaveData(sql, new { Name = @Name, Surname = @Surname, ID = @ID, Email = @Email },
+        _config.GetConnectionString("default"));
         //_nav.NavigateTo("/Newpage");
     }
 
-   
+
 
     protected override async Task OnInitializedAsync()
     {
-        
-    }
-    
-}
 
+    }
+
+}
