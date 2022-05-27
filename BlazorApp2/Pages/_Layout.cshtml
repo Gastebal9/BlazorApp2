@@ -4,6 +4,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,6 +14,7 @@
     <link href="BlazorApp2.styles.css" rel="stylesheet" />
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
 </head>
+
 <body>
     @RenderBody()
 
@@ -21,14 +23,15 @@
             An error has occurred. This application may no longer respond until reloaded.
         </environment>
         <environment include="Development">
-            Your changers have been save please reload the page 
+            Are you sure you want to save the changes ?
         </environment>
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
+        <a href="" class="reload">Yes</a>
+        <a class="dismiss">No</a>
     </div>
 
 
 
     <script src="_framework/blazor.server.js"></script>
 </body>
+
 </html>
